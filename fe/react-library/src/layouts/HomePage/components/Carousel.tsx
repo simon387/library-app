@@ -37,6 +37,23 @@ export const Carousel = () => {
 			setHttpError(error.messsage);
 		});
 	}, []);
+
+	if (isLoading) {
+		return (
+			<div className='container m-5'>
+				<p>Loading...</p>
+			</div>
+		);
+	}
+
+	if (httpError) {
+		return (
+			<div className='container m-5'>
+				<p>{httpError}</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className='container mt-5' style={{height: 550}}>
 			<div className='homepage-carousel-title'>
