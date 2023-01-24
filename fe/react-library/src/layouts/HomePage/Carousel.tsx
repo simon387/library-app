@@ -40,6 +40,18 @@ export const Carousel = () => {
 					</button>
 				</div>
 			</div>
+
+			{/* Mobile */}
+			<div className='d-lg-none mt-3'>
+				<div className='row d-flex justify-content-center align-items-center'>
+					<div className='row d-flex justify-content-center align-items-center'>
+						<ReturnBook/>
+					</div>
+				</div>
+			</div>
+			<div className='homepage-carousel-title mt-3'>
+				<a className='btn btn-outline-secondary btn-lg' href='#'>View More</a>
+			</div>
 		</div>
 	);
 }
