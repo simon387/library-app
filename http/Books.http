@@ -1,0 +1,8 @@
+### get alls books
+GET {{baseURL}}books
+Content-Type: application/json
+
+### get alls books
+GET {{baseURL}}books/search/findByTitleContaining?title=guru&page=0&size=5
+Content-Type: application/json
+
