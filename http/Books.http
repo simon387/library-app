@@ -6,3 +6,6 @@ Content-Type: application/json
 GET {{baseURL}}books/search/findByTitleContaining?title=guru&page=0&size=5
 Content-Type: application/json
 
+### get by category
+GET {{baseURL}}books/search/findByCategory?category=fe&page=0&size=5
+Content-Type: application/json
