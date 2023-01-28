@@ -13,3 +13,7 @@ Content-Type: application/json
 ### get all reviews
 GET {{baseURL}}reviews
 Content-Type: application/json
+
+### get review by book id
+GET {{baseURL}}reviews/search/findByBookId?bookId=2
+Content-Type: application/json
