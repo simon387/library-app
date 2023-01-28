@@ -9,3 +9,7 @@ Content-Type: application/json
 ### get by category
 GET {{baseURL}}books/search/findByCategory?category=fe&page=0&size=5
 Content-Type: application/json
+
+### get all reviews
+GET {{baseURL}}reviews
+Content-Type: application/json
