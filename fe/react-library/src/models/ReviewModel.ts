@@ -4,7 +4,7 @@ export default class ReviewModel {
 	date: string;
 	rating: number;
 	book_id: number;
-	revireDescription?: string;
+	reviewDescription?: string;
 
 	constructor(id: number, userEmail: string, date: string, rating: number, book_id: number, reviewDescription: string) {
 		this.id = id;
@@ -12,6 +12,6 @@ export default class ReviewModel {
 		this.date = date;
 		this.rating = rating;
 		this.book_id = book_id;
-		this.revireDescription = reviewDescription;
+		this.reviewDescription = reviewDescription;
 	}
 }
