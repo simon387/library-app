@@ -19,7 +19,8 @@ export const BookCheckOutPage = () => {
 			const responseJson = await response.json();
 			const loadedBook: BookModel = {
 				id: responseJson.id,
-				title: responseJson.author,
+				title: responseJson.title,
+				author: responseJson.author,
 				description: responseJson.description,
 				copies: responseJson.copies,
 				copiesAvailable: responseJson.copiesAvailable,
