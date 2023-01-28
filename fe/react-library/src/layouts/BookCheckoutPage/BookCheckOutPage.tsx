@@ -4,8 +4,6 @@ import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import {StarsReview} from "../Utils/StarsReview";
 import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
-import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
 
 export const BookCheckOutPage = () => {
 	const [book, setBook] = useState<BookModel>();
