@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import BookModel from "../../models/BookModel";
 import {SpinnerLoading} from "../Utils/SpinnerLoading";
 import {StarsReview} from "../Utils/StarsReview";
+import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 
 export const BookCheckOutPage = () => {
 	const [book, setBook] = useState<BookModel>();
@@ -59,7 +60,7 @@ export const BookCheckOutPage = () => {
 				<div className='row mt-5'>
 					<div className='col-sm-2 col-md-2'>
 						{book?.img ?
-							<img src={book?.img} width='226' height='349' alt='book' />
+							<img src={book?.img} width='226' height='349' alt='book'/>
 							:
 							<img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book'/>
 						}
@@ -72,13 +73,14 @@ export const BookCheckOutPage = () => {
 							<StarsReview rating={4.5} size={32}/>
 						</div>
 					</div>
+					<CheckoutAndReviewBox book={book} mobile={false}/>
 				</div>
 				<hr/>
 			</div>
 			<div className='container d-lg-none mt-5'>
 				<div className='d-flex justify-content-center align-item-center'>
 					{book?.img ?
-						<img src={book?.img} width='226' height='349' alt='book' />
+						<img src={book?.img} width='226' height='349' alt='book'/>
 						:
 						<img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book'/>
 					}
@@ -91,6 +93,7 @@ export const BookCheckOutPage = () => {
 						<StarsReview rating={4.5} size={32}/>
 					</div>
 				</div>
+				<CheckoutAndReviewBox book={book} mobile={true}/>
 				<hr/>
 			</div>
 		</div>
