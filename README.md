@@ -6,8 +6,8 @@
 
 ```npm install --save @types/react-router-dom```
 
-```npm install @octa/okta-sigin-widget```
+```npm install @okta/okta-signin-widget@6.3.3```
 
-```npm install @octa/okta-react```
+```npm install @okta/okta-react@6.4.3```
 
 https://github.com/darbyluv2code/fullstack-react-and-springboot.git
