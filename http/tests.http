@@ -17,3 +17,6 @@ Content-Type: application/json
 ### get review by book id
 GET {{baseURL}}reviews/search/findByBookId?bookId=2
 Content-Type: application/json
+
+### checkout test
+PUT {{baseURL}}books/secure/checkout?bookId=1
