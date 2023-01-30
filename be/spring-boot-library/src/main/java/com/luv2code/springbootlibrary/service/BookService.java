@@ -49,10 +49,10 @@ public class BookService {
 
 	public Boolean checkoutBookByUser ( String userEmail, Long bookId ) {
 		Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId ( userEmail, bookId );
-		if ( validateCheckout != null ) {
-			return true;
-		} else {
-			return false;
-		}
+		return validateCheckout != null;
+	}
+
+	public int currentLoansCount ( String userEmail ) {
+		return checkoutRepository.findBookByUserEmail ( userEmail ).size ();
 	}
 }
