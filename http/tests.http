@@ -24,4 +24,5 @@ PUT {{baseURL}}books/secure/checkout?bookId=1
 ### already checked out test
 GET {{baseURL}}books/secure/ischeckedout/byuser?bookId=1
 
-###
+### get currentloans/count
+GET {{baseURL}}books/secure/currentloans/count
