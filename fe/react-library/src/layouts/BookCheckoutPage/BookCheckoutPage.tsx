@@ -15,14 +15,18 @@ export const BookCheckoutPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [httpError, setHttpError] = useState(null);
 
-    // Review State
-    const [reviews, setReviews] = useState<ReviewModel[]>([])
+	// Review State
+	const [reviews, setReviews] = useState<ReviewModel[]>([])
 	const [totalStars, setTotalStars] = useState(0);
 	const [isLoadingReview, setIsLoadingReview] = useState(true);
 
 	// Loans Count State
 	const [currentLoansCount, setCurrentLoansCount] = useState(0);
 	const [isLoadingCurrentLoansCount, setIsLoadingCurrentLoansCount] = useState(true);
+
+	// Is Book Check Out?
+	const [isCheckedOut, setIsCheckedOut] = useState(false);
+	const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true)
 
 	const bookId = (window.location.pathname).split('/')[2];
 
@@ -104,7 +108,7 @@ export const BookCheckoutPage = () => {
 				};
 				const currentLoansCountResponse = await fetch(url, requestOptions);
 				if (!currentLoansCountResponse.ok) {
-					throw new Error ('Something went wrong!');
+					throw new Error('Something went wrong!');
 				}
 				const currentLoansCountResponseJson = await currentLoansCountResponse.json();
 				setCurrentLoansCount(currentLoansCountResponseJson);
@@ -113,6 +117,16 @@ export const BookCheckoutPage = () => {
 		}
 		fetchUserCurrentLoansCount().catch((error: any) => {
 			setIsLoadingCurrentLoansCount(false);
+			setHttpError(error.message);
+		})
+	}, [authState]);
+
+	useEffect(() => {
+		const fetchUserCheckedOutBook = async () => {
+
+		};
+		fetchUserCheckedOutBook().catch((error: any) => {
+			setIsLoadingBookCheckedOut(false);
 			setHttpError(error.message);
 		})
 	}, [authState]);
@@ -139,7 +153,7 @@ export const BookCheckoutPage = () => {
 				<div className='row mt-5'>
 					<div className='col-sm-2 col-md-2'>
 						{book?.img ?
-                            <img src={book?.img} width='226' height='349' alt='Book' />
+							<img src={book?.img} width='226' height='349' alt='Book'/>
 							:
 							<img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book'/>
 						}
@@ -158,9 +172,9 @@ export const BookCheckoutPage = () => {
 				<LatestReviews reviews={reviews} bookId={book?.id} mobile={false}/>
 			</div>
 			<div className='container d-lg-none mt-5'>
-                <div className='d-flex justify-content-center align-items-center'>
+				<div className='d-flex justify-content-center align-items-center'>
 					{book?.img ?
-                        <img src={book?.img} width='226' height='349' alt='Book' />
+						<img src={book?.img} width='226' height='349' alt='Book'/>
 						:
 						<img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book'/>
 					}
