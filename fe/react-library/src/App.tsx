@@ -5,7 +5,7 @@ import {Navbar} from "./layouts/NavbarAndFooter/Navbar";
 import {Footer} from "./layouts/NavbarAndFooter/Footer";
 import {SearchBooksPage} from "./layouts/SearchBooksPage/SearchBooksPage";
 import {Redirect, Route, Switch, useHistory} from "react-router";
-import {BookCheckOutPage} from "./layouts/BookCheckoutPage/BookCheckOutPage";
+import {BookCheckoutPage} from "./layouts/BookCheckoutPage/BookCheckoutPage";
 import {oktaConfig} from "./lib/oktaConfig";
 import {OktaAuth, toRelativeUrl} from '@okta/okta-auth-js';
 import {LoginCallback, Security} from "@okta/okta-react";
@@ -40,7 +40,7 @@ export const App = () => {
 							<SearchBooksPage/>
 						</Route>
 						<Route path='/checkout/:bookId'>
-							<BookCheckOutPage/>
+							<BookCheckoutPage/>
 						</Route>
 						<Route path='/login' render={
 							() => <LoginWidget config={oktaConfig}/>
