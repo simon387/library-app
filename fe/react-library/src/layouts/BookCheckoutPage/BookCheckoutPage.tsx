@@ -26,7 +26,7 @@ export const BookCheckoutPage = () => {
 
 	// Is Book Check Out?
 	const [isCheckedOut, setIsCheckedOut] = useState(false);
-	const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true)
+	const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true);
 
 	const bookId = (window.location.pathname).split('/')[2];
 
@@ -54,8 +54,8 @@ export const BookCheckoutPage = () => {
 		fetchBook().catch((error: any) => {
 			setIsLoading(false);
 			setHttpError(error.message);
-		});
-	}, []);
+		})
+	}, [isCheckedOut]);
 
 	useEffect(() => {
 		const fetchBookReviews = async () => {
@@ -119,11 +119,29 @@ export const BookCheckoutPage = () => {
 			setIsLoadingCurrentLoansCount(false);
 			setHttpError(error.message);
 		})
-	}, [authState]);
+    }, [authState, isCheckedOut]);
 
 	useEffect(() => {
 		const fetchUserCheckedOutBook = async () => {
+			if (authState && authState.isAuthenticated) {
+                const url = `http://localhost:8080/api/books/secure/ischeckedout/byuser/?bookId=${bookId}`;
+				const requestOptions = {
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${authState.accessToken?.accessToken}`,
+						'Content-Type': 'application/json'
+					}
+				};
+				const bookCheckedOut = await fetch(url, requestOptions);
 
+				if (!bookCheckedOut.ok) {
+					throw new Error('Something went wrong!');
+				}
+
+				const bookCheckedOutResponseJson = await bookCheckedOut.json();
+				setIsCheckedOut(bookCheckedOutResponseJson);
+			}
+			setIsLoadingBookCheckedOut(false);
 		};
 		fetchUserCheckedOutBook().catch((error: any) => {
 			setIsLoadingBookCheckedOut(false);
@@ -131,7 +149,7 @@ export const BookCheckoutPage = () => {
 		})
 	}, [authState]);
 
-	if (isLoading || isLoadingReview || isLoadingCurrentLoansCount) {
+	if (isLoading || isLoadingReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut) {
 		return (
 			<div className='container m-5'>
 				<SpinnerLoading/>

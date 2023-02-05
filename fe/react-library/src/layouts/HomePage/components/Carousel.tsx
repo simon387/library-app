@@ -37,8 +37,8 @@ export const Carousel = () => {
 		};
 		fetchBooks().catch((error: any) => {
 			setIsLoading(false);
-			setHttpError(error.messsage);
-		});
+            setHttpError(error.message);
+        })
 	}, []);
 
 	if (isLoading) {
@@ -86,6 +86,7 @@ export const Carousel = () => {
 							))}
 						</div>
 					</div>
+                </div>
 					<button className='carousel-control-prev' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
 						<span className='carousel-control-prev-icon' aria-hidden='true'></span>
 						<span className='visually-hidden'>Previous</span>
@@ -95,13 +96,11 @@ export const Carousel = () => {
 						<span className='visually-hidden'>Next</span>
 					</button>
 				</div>
-			</div>
+
 			{/* Mobile */}
 			<div className='d-lg-none mt-3'>
-				<div className='row d-flex justify-content-center align-items-center'>
 					<div className='row d-flex justify-content-center align-items-center'>
 						<ReturnBook book={books[7]} key={books[7].id} />
-					</div>
 				</div>
 			</div>
 			<div className='homepage-carousel-title mt-3'>
