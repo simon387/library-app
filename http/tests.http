@@ -41,3 +41,6 @@ Content-Type: application/json
   "bookId": 1,
   "reviewDescription": "Very good book!"
 }
+
+###
+GET {{baseURL}}/reviews/secure/user/book/?bookId=1
