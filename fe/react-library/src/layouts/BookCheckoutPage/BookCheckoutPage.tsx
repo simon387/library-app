@@ -222,7 +222,7 @@ export const BookCheckoutPage = () => {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
-				'Content-Type:': 'application/json'
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(reviewRequestModel)
 		}
@@ -260,6 +260,7 @@ export const BookCheckoutPage = () => {
 						isCheckedOut={isCheckedOut}
 						checkoutBook={checkoutBook}
 						isReviewLeft={isReviewLeft}
+						submitReview={submitReview}
 					/>
 				</div>
 				<hr/>
@@ -289,6 +290,7 @@ export const BookCheckoutPage = () => {
 					isCheckedOut={isCheckedOut}
 					checkoutBook={checkoutBook}
 					isReviewLeft={isReviewLeft}
+					submitReview={submitReview}
 				/>
 				<hr/>
 				<LatestReviews reviews={reviews} bookId={book?.id} mobile={true}/>
