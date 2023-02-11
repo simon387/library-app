@@ -2,11 +2,11 @@ import BookModel from "./BookModel";
 
 class ShelfCurrentLoans {
 	book: BookModel;
-	dayLeft: number;
+	daysLeft: number;
 
-	constructor(book: BookModel, dayLeft: number) {
+	constructor(book: BookModel, daysLeft: number) {
 		this.book = book;
-		this.dayLeft = dayLeft;
+		this.daysLeft = daysLeft;
 	}
 }
 
