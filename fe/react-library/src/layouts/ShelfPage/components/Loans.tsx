@@ -1,10 +1,10 @@
-import {useOktaAuth} from "@okta/okta-react";
-import {useEffect, useState} from "react";
-import ShelfCurrentLoans from "../../../models/ShelfCurrentLoans";
-import {SpinnerLoading} from "../../Utils/SpinnerLoading";
-import {Link} from "react-router-dom";
-import {LoansModal} from "./LoansModal";
-mancano i due in 7 days
+import {useOktaAuth} from '@okta/okta-react';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import ShelfCurrentLoans from '../../../models/ShelfCurrentLoans';
+import {SpinnerLoading} from '../../Utils/SpinnerLoading';
+import {LoansModal} from './LoansModal';
+
 export const Loans = () => {
 
 	const {authState} = useOktaAuth();
@@ -74,7 +74,7 @@ export const Loans = () => {
 		setCheckout(!checkout);
 	}
 
-	async function renewLoad(bookId: number) {
+	async function renewLoan(bookId: number) {
 		const url = `http://localhost:8080/api/books/secure/renew/loan/?bookId=${bookId}`;
 		const requestOptions = {
 			method: 'PUT',
@@ -149,7 +149,8 @@ export const Loans = () => {
 									</div>
 								</div>
 								<hr/>
-								<LoansModal shelfCurrentLoan={shelfCurrentLoan} mobile={false} returnBook={returnBook} renewLoan={renewLoad}/>
+								<LoansModal shelfCurrentLoan={shelfCurrentLoan} mobile={false} returnBook={returnBook}
+														renewLoan={renewLoan}/>
 							</div>
 						))}
 					</>
@@ -220,7 +221,8 @@ export const Loans = () => {
 									</div>
 								</div>
 								<hr/>
-								<LoansModal shelfCurrentLoan={shelfCurrentLoan} mobile={true} returnBook={returnBook} renewLoan={renewLoad}/>
+								<LoansModal shelfCurrentLoan={shelfCurrentLoan} mobile={true} returnBook={returnBook}
+														renewLoan={renewLoan}/>
 							</div>
 						))}
 					</> :

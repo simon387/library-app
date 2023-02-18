@@ -9,10 +9,10 @@ public class ShelfCurrentLoansResponse {
 
 	private Book book;
 
-	private int dayLeft;
+	private int daysLeft;
 
-	public ShelfCurrentLoansResponse ( Book book, int dayLeft ) {
+	public ShelfCurrentLoansResponse ( Book book, int daysLeft ) {
 		this.book = book;
-		this.dayLeft = dayLeft;
+		this.daysLeft = daysLeft;
 	}
 }
