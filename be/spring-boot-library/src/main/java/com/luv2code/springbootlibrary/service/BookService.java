@@ -2,10 +2,11 @@ package com.luv2code.springbootlibrary.service;
 
 import com.luv2code.springbootlibrary.dao.BookRepository;
 import com.luv2code.springbootlibrary.dao.CheckoutRepository;
+import com.luv2code.springbootlibrary.dao.HistoryRepository;
 import com.luv2code.springbootlibrary.entity.Book;
 import com.luv2code.springbootlibrary.entity.Checkout;
+import com.luv2code.springbootlibrary.entity.History;
 import com.luv2code.springbootlibrary.responemodels.ShelfCurrentLoansResponse;
-import org.hibernate.annotations.Check;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,17 +20,18 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-@Service
-@Transactional
-public class BookService {
+@Service @Transactional public class BookService {
 
 	private final BookRepository bookRepository;
 
 	private final CheckoutRepository checkoutRepository;
 
-	public BookService ( BookRepository bookRepository, CheckoutRepository checkoutRepository ) {
+	private final HistoryRepository historyRepository;
+
+	public BookService ( BookRepository bookRepository, CheckoutRepository checkoutRepository, HistoryRepository historyRepository ) {
 		this.bookRepository = bookRepository;
 		this.checkoutRepository = checkoutRepository;
+		this.historyRepository = historyRepository;
 	}
 
 	public Book checkoutBook ( String userEmail, Long bookId ) throws Exception {
@@ -43,12 +45,7 @@ public class BookService {
 		book.get ().setCopiesAvailable ( book.get ().getCopiesAvailable () - 1 );
 		bookRepository.save ( book.get () );
 
-		Checkout checkout = new Checkout (
-						userEmail,
-						LocalDate.now ().toString (),
-						LocalDate.now ().plusDays ( 7 ).toString (),
-						book.get ().getId ()
-		);
+		Checkout checkout = new Checkout ( userEmail, LocalDate.now ().toString (), LocalDate.now ().plusDays ( 7 ).toString (), book.get ().getId () );
 
 		checkoutRepository.save ( checkout );
 
@@ -80,8 +77,7 @@ public class BookService {
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd" );
 
 		for ( Book book : books ) {
-			Optional<Checkout> checkout = checkoutList.stream ()
-							.filter ( x -> Objects.equals ( x.getBookId (), book.getId () ) ).findFirst ();
+			Optional<Checkout> checkout = checkoutList.stream ().filter ( x -> Objects.equals ( x.getBookId (), book.getId () ) ).findFirst ();
 
 			if ( checkout.isPresent () ) {
 
@@ -111,6 +107,11 @@ public class BookService {
 
 		bookRepository.save ( book.get () );
 		checkoutRepository.deleteById ( validateCheckout.getId () );
+
+		History history = new History ( userEmail, validateCheckout.getCheckoutDate (), LocalDate.now ().toString (), book.get ().getTitle (),
+						book.get ().getAuthor (), book.get ().getDescription (), book.get ().getImg () );
+
+		historyRepository.save ( history );
 	}
 
 	public void renewLoan ( String userEmail, Long bookId ) throws Exception {
