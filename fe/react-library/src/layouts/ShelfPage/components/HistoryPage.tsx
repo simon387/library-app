@@ -16,7 +16,7 @@ export const HistoryPage = () => {
 
 	// Pagination
 	const [currentPage, setCurrentPage] = useState(1);
-	const [totalPages, setTotoalPages] = useState(0);
+	const [totalPages, setTotalPages] = useState(0);
 
 	useEffect(() => {
 		const fetchUserHistory = async () => {
@@ -35,14 +35,14 @@ export const HistoryPage = () => {
 				const historyResponseJson = await historyResponse.json();
 
 				setHistories(historyResponseJson._embedded.histories);
-				setTotoalPages(historyResponseJson.page.totalPages);
+				setTotalPages(historyResponseJson.page.totalPages);
 			}
 			setIsLoadingHistory(false);
 		}
 		fetchUserHistory().catch((error: any) => {
 			setIsLoadingHistory(false);
 			setHttpError(error.message);
-		});
+		})
 	}, [authState, currentPage]);
 
 	if (isLoadingHistory) {
