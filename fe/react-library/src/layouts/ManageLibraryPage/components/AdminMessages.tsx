@@ -2,13 +2,14 @@ import {useOktaAuth} from "@okta/okta-react";
 import {useEffect, useState} from "react";
 import MessageModel from "../../../models/MessageModel";
 import {SpinnerLoading} from "../../Utils/SpinnerLoading";
+import {Pagination} from "../../Utils/Pagination";
 
 export const AdminMessages = () => {
 
 	const {authState} = useOktaAuth();
 
 	// Normal Loading Pieces
-	const [isLoadingMessage, setIsLoadingMessages] = useState(true);
+	const [isLoadingMessages, setIsLoadingMessages] = useState(true);
 	const [httpError, setHttpError] = useState(null);
 
 	// Messages endpoint State
@@ -22,7 +23,7 @@ export const AdminMessages = () => {
 	useEffect(() => {
 		const fetchUserMessages = async () => {
 			if (authState && authState.isAuthenticated) {
-				const url = `http://localhost:8080/api/messages/search/findByClosed/?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`
+				const url = `http://localhost:8080/api/messages/search/findByClosed/?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`;
 				const requestOptions = {
 					method: 'GET',
 					headers: {
@@ -48,8 +49,10 @@ export const AdminMessages = () => {
 		window.scrollTo(0, 0);
 	}, [authState, currentPage]);
 
-	if (isLoadingMessage) {
-		return <SpinnerLoading/>;
+	if (isLoadingMessages) {
+		return (
+			<SpinnerLoading/>
+		);
 	}
 
 	if (httpError) {
@@ -60,10 +63,21 @@ export const AdminMessages = () => {
 		)
 	}
 
-	const paginate = (pageNumner: number) => setCurrentPage(pageNumner);
+	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
 	return (
-		<>
-		</>
+		<div className='mt-3'>
+			{messages.length > 0 ?
+				<>
+					<h5>Pending Q/A: </h5>
+					{messages.map(message => (
+						<p>Questions that need a response</p>
+					))}
+				</>
+				:
+				<h5>No pending Q/A</h5>
+			}
+			{totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate}/>}
+		</div>
 	);
 }
