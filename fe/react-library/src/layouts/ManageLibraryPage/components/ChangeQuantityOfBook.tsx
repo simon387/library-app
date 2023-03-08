@@ -1,8 +1,10 @@
 import BookModel from "../../../models/BookModel";
 import {useEffect, useState} from "react";
+import {useOktaAuth} from "@okta/okta-react";
 
 export const ChangeQuantityOfBook: React.FC<{ book: BookModel }> = (props, key) => {
 
+	const {authState} = useOktaAuth();
 	const [quantity, setQuantity] = useState<number>(0);
 	const [remaining, setRemaining] = useState<number>(0);
 
@@ -14,22 +16,40 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel }> = (props, key) 
 		fetchBookInState();
 	}, []);
 
+	async function increaseQuantity() {
+		const url = `http://localhost:8080/api/admin/secure/increase/book/quantity/?bookId=${props.book?.id}`;
+		const requstOptions = {
+			method: "PUT",
+			headers: {
+				Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
+				'Content-Type': 'application/json'
+			}
+		};
+
+		const quantityUpdateResponse = await fetch(url, requstOptions);
+		if (!quantityUpdateResponse.ok) {
+			throw new Error("Something went wronf!");
+		}
+		setQuantity(quantity + 1);
+		setRemaining(remaining + 1);
+	}
+
 	return (
 		<div className='card mt-3 shadow p-3 mb-3 bg-body rounded'>
 			<div className='row g-0'>
 				<div className='col-md-2'>
 					<div className='d-none d-lg-block'>
 						{props.book.img ?
-							<img src={props.book.img} width='123' height='196' alt='Book' />
+							<img src={props.book.img} width='123' height='196' alt='Book'/>
 							:
-							<img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} width='123' height='196' alt='Book' />
+							<img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} width='123' height='196' alt='Book'/>
 						}
 					</div>
 					<div className='d-lg-none d-flex justify-content-center align-items-center'>
 						{props.book.img ?
-							<img src={props.book.img} width='123' height='196' alt='Book' />
+							<img src={props.book.img} width='123' height='196' alt='Book'/>
 							:
-							<img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} width='123' height='196' alt='Book' />
+							<img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} width='123' height='196' alt='Book'/>
 						}
 					</div>
 				</div>
@@ -53,7 +73,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel }> = (props, key) 
 						<button className='m-1 btn btn-md btn-danger'>Delete</button>
 					</div>
 				</div>
-				<button className='m1 btn btn-md main-color text-white'>Add Quantity</button>
+				<button className='m1 btn btn-md main-color text-white' onClick={increaseQuantity}>Add Quantity</button>
 				<button className='m1 btn btn-md btn-warning'>Decrease Quantity</button>
 			</div>
 		</div>
