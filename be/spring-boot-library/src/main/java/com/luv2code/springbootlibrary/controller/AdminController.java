@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin ( "http://localhost:3000" ) @RestController @RequestMapping ( "/api/admin" ) public class AdminController {
+@CrossOrigin ( "https://localhost:3000" ) @RestController @RequestMapping ( "/api/admin" ) public class AdminController {
 
 	private final AdminService adminService;
 

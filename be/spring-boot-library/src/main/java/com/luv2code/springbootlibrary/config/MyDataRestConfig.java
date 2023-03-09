@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 		disableHttpMethods ( Message.class, config, theUnsupportedActions );
 
 		/* Configure CORS Mapping */
-		String theAllowerOrigins = "http://localhost:3000";
+		String theAllowerOrigins = "https://localhost:3000";
 		cors.addMapping ( config.getBasePath () + "/**" ).allowedOrigins ( theAllowerOrigins );
 	}
 
