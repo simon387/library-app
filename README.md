@@ -27,6 +27,8 @@ spring.data.rest.base-path=/api
 okta.oauth2.client-id=
 okta.oauth2.issuer=https://{path}/oauth2/default
 
+stripe.key.secret=
+
 #####
 #
 # HTTPS configuration
