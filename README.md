@@ -10,6 +10,12 @@
 
 ```npm install @okta/okta-react@6.4.3```
 
+```npm install stripe@9.14.0```
+
+```npm install @stripe/react-stripe-js@1.9.0```
+
+```npm install @stripe/stripe-js@1.32.0```
+
 https://github.com/darbyluv2code/fullstack-react-and-springboot.git
 
 ## application.properties format
