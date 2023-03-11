@@ -20,10 +20,7 @@ export const PaymentPage = () => {
 				const url = `${process.env.REACT_APP_API}/payments/search/findByUserEmail?userEmail=${authState.accessToken?.claims.sub}`;
 				const requestOptions = {
 					method: 'GET',
-					headers: {
-						Authorization: `Bearer ${authState.accessToken?.accessToken}`,
-						'Content-Type': 'application/json'
-					}
+                    headers: { 'Content-Type': 'application/json' }
 				};
 				const paymentResponse = await fetch(url, requestOptions);
 				if (!paymentResponse.ok) {
@@ -52,7 +49,7 @@ export const PaymentPage = () => {
 
 		let paymentInfo = new PaymentInfoRequest(Math.round(fees * 100), 'USD', authState?.accessToken?.claims.sub);
 
-		const url = `${process.env.REACT_APP_API}/payments/secure/payment-intent`;
+		const url = `${process.env.REACT_APP_API}/payment/secure/payment-intent`;
 		const requestOptions = {
 			method: 'POST',
 			headers: {
@@ -83,7 +80,7 @@ export const PaymentPage = () => {
 				setSubmitDisabled(false);
 				alert('There was an error');
 			} else {
-				const url = `${process.env.REACT_APP_API}/payments/secure/payment-complete`;
+				const url = `${process.env.REACT_APP_API}/payment/secure/payment-complete`;
 				const requestOptions = {
 					method: 'PUT',
 					headers: {
