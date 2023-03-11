@@ -22,7 +22,9 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-@Service @Transactional public class BookService {
+@Service
+@Transactional
+public class BookService {
 
 	private final BookRepository bookRepository;
 
@@ -145,6 +147,23 @@ import java.util.concurrent.TimeUnit;
 		book.get ().setCopiesAvailable ( book.get ().getCopiesAvailable () + 1 );
 
 		bookRepository.save ( book.get () );
+
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd" );
+
+		Date d1 = sdf.parse ( validateCheckout.getReturnDate () );
+		Date d2 = sdf.parse ( LocalDate.now ().toString () );
+
+		TimeUnit time = TimeUnit.DAYS;
+
+		double differenceInTime = time.convert ( d1.getTime () - d2.getTime (), TimeUnit.MILLISECONDS );
+
+		if ( differenceInTime < 0 ) {
+			Payment payment = paymentRepository.findByUserEmail ( userEmail );
+
+			payment.setAmount ( payment.getAmount () + ( differenceInTime * -1 ) );
+			paymentRepository.save ( payment );
+		}
+
 		checkoutRepository.deleteById ( validateCheckout.getId () );
 
 		History history = new History ( userEmail, validateCheckout.getCheckoutDate (), LocalDate.now ().toString (), book.get ().getTitle (),
