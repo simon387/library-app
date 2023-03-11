@@ -46,11 +46,11 @@ public class BookService {
 		Optional<Book> book = bookRepository.findById ( bookId );
 		Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId ( userEmail, bookId );
 
-		if ( book.isEmpty () || validateCheckout != null || book.get ().getCopiesAvailable () < 0 ) {
+        if ( book.isEmpty () || validateCheckout != null || book.get().getCopiesAvailable() <= 0) {
 			throw new Exception ( "Book doesn't exist or already checked out by user" );
 		}
 
-		List<Checkout> currentBooksCheckedOut = checkoutRepository.findBookByUserEmail ( userEmail );
+        List<Checkout> currentBooksCheckedOut = checkoutRepository.findBooksByUserEmail(userEmail);
 
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd" );
 
@@ -99,14 +99,14 @@ public class BookService {
 	}
 
 	public int currentLoansCount ( String userEmail ) {
-		return checkoutRepository.findBookByUserEmail ( userEmail ).size ();
+        return checkoutRepository.findBooksByUserEmail(userEmail).size();
 	}
 
 	public List<ShelfCurrentLoansResponse> currentLoans ( String userEmail ) throws Exception {
 
 		List<ShelfCurrentLoansResponse> shelfCurrentLoansResponses = new ArrayList<> ();
 
-		List<Checkout> checkoutList = checkoutRepository.findBookByUserEmail ( userEmail );
+        List<Checkout> checkoutList = checkoutRepository.findBooksByUserEmail(userEmail);
 		List<Long> bookIdList = new ArrayList<> ();
 
 		for ( Checkout i : checkoutList ) {
@@ -118,7 +118,8 @@ public class BookService {
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd" );
 
 		for ( Book book : books ) {
-			Optional<Checkout> checkout = checkoutList.stream ().filter ( x -> Objects.equals ( x.getBookId (), book.getId () ) ).findFirst ();
+            Optional<Checkout> checkout = checkoutList.stream()
+                    .filter(x -> Objects.equals ( x.getBookId (), book.getId () ) ).findFirst();
 
 			if ( checkout.isPresent () ) {
 
